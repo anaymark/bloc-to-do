@@ -7,12 +7,11 @@ class App extends Component {
      super(props);
      this.state = {
        todos: [
-         { description: 'Walk the cat', isCompleted: true },
-         { description: 'Throw the dishes away', isCompleted: false },
-         { description: 'Buy new dishes', isCompleted: false }
+         { description: 'Add my first ToDo', isCompleted: false},
        ],
        newToDoDescription: ''
      };
+     this.deleteTodo = this.deleteTodo.bind(this);
    }
 
    toggleComplete(index) {
@@ -20,6 +19,12 @@ class App extends Component {
     const todo = todos[index];
     todo.isCompleted = todo.isCompleted ? false: true;
     this.setState({todos : todos})
+   }
+  
+   deleteTodo(index) {
+    const lisDelete = this.state.todos[index];
+    const filteredItem = this.state.todos.filter (todo => todo !== lisDelete)
+    this.setState({todos:filteredItem})
    }
 
    handleChange(e)
@@ -39,16 +44,17 @@ class App extends Component {
       <div className="App">
         <ul>
           {this.state.todos.map( (todo, index) => 
-            <ToDo key={ index } description={todo.description} isCompleted={todo.isCompleted}
-            toggleComplete={()=>this.toggleComplete(index)} />
+            <ToDo key={ index } description={todo.description} isCompleted = { todo.isCompleted } toggleComplete = { () => this.toggleComplete(index) } deleteTodo = { () => this.deleteTodo(index) }/>
           )}
        </ul>
        
-       <form onSubmit = {(e) => this.handleSubmit(e) }>
-          <input type="text" value = {this.state.newToDoDescription} onChange = {(e)=>this.handleChange(e)} />
+       <form onSubmit = {(e) => this.handleSubmit(e)}>
+          <label>
+          <input type="text" value = {this.state.newToDoDescription} onChange = {(e)=>this.handleChange(e)}  />
           <input type="submit" />
+          </label>
        </form>
-      </div>
+    </div>
     );
   }
 }
