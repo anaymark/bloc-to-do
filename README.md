@@ -1,3 +1,1 @@
-# bloc-become-dev
-
-# Becoming a dev module of Bloc v3 program
+# Bloc TO-DO Simple React APP
